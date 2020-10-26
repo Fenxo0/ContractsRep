@@ -5,18 +5,10 @@ import java.time.LocalDate;
 /**
  * @author Maxim Suhochev
  */
-public class TV implements Contract {
+public class TV extends Contract {
 
-    /** Client*/
-    private Client client;
     /** package TV*/
     private String packageTV;
-    /** id contract TV*/
-    private int id;
-    /** start TV contract*/
-    private LocalDate startDate;
-    /** start TV contract*/
-    private LocalDate endDate;
 
     /**
      * TV contact constructor
@@ -26,13 +18,14 @@ public class TV implements Contract {
      * @param startDate
      * @param endDate
      */
-    public TV(Client client, String packageTV, int id, LocalDate startDate, LocalDate endDate) {
+    public TV(Client client, int id, LocalDate startDate, LocalDate endDate, String packageTV) {
         this.client = client;
-        this.packageTV = packageTV;
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.packageTV = packageTV;
     }
+
 
     @Override
     public String toString() {
@@ -44,8 +37,4 @@ public class TV implements Contract {
                 ", endDate=" + endDate;
     }
 
-    @Override
-    public int getId() {
-        return id;
-    }
 }

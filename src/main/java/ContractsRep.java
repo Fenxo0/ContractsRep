@@ -6,9 +6,11 @@ import java.util.Arrays;
  * @author Maxim Suhochev
  */
 public class ContractsRep {
-    /** */
+    /** dimension array*/
     private int n = 15;
+    /** count add*/
     private int count = 0;
+    /** array contracts*/
     private Contract[]con = new Contract[n];
 
     /**

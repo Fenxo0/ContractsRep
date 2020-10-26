@@ -5,21 +5,13 @@ import java.time.LocalDate;
 /**
  * @author Maxim Suhochev
  */
-public class Mobile implements Contract {
-    /** Client*/
-    private Client client;
+public class Mobile extends Contract {
     /** amount internet in this contract*/
     private String amountInternet;
     /** amount call in this contract*/
     private int amountCall;
     /** amount sms in this contract*/
     private int amountSMS;
-    /** id internet contract*/
-    private int id;
-    /** start mobile contract*/
-    private LocalDate startDate;
-    /** start mobile contract*/
-    private LocalDate endDate;
 
     /**
      * Mobile contract constructor
@@ -39,11 +31,6 @@ public class Mobile implements Contract {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-    @Override
-    public int getId() {
-        return id;
     }
 
     @Override

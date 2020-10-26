@@ -5,14 +5,8 @@ import java.time.LocalDate;
 /**
  * @author Maxim Suhochev
  */
-public class Internet implements Contract {
-    private final Client client;
+public class Internet extends Contract {
     private final String maxSpeed;
-    private final int id;
-    /** start internet contract*/
-    private LocalDate startDate;
-    /** start internet contract*/
-    private LocalDate endDate;
 
     /**
      * Internet contract constructor
@@ -40,8 +34,4 @@ public class Internet implements Contract {
                 ", endDate=" + endDate ;
     }
 
-    @Override
-    public int getId() {
-        return id;
-    }
 }

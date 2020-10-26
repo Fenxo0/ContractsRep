@@ -1,12 +1,27 @@
 package contacts;
 
+import java.time.LocalDate;
+
 /**
  * @author Maxim Suhochev
  */
-public interface Contract {
+public class Contract {
+
+    /** client*/
+    protected Client client;
+    /** id contract*/
+    protected int id;
+    /** start contract*/
+    protected LocalDate startDate;
+    /** start contract*/
+    protected LocalDate endDate;
+
+
     /**
      * This method get id contract
      * @return id
      */
-    int getId();
+    public int getId(){
+        return id;
+    }
 }
