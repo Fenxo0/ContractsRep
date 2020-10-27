@@ -6,7 +6,8 @@ import java.time.LocalDate;
  * @author Maxim Suhochev
  */
 public class Internet extends Contract {
-    private final String maxSpeed;
+    private String maxSpeed;
+
 
     /**
      * Internet contract constructor
@@ -34,4 +35,11 @@ public class Internet extends Contract {
                 ", endDate=" + endDate ;
     }
 
+    public String getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(String maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
 }

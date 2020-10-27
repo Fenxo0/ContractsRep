@@ -37,4 +37,11 @@ public class TV extends Contract {
                 ", endDate=" + endDate;
     }
 
+    public String getPackageTV() {
+        return packageTV;
+    }
+
+    public void setPackageTV(String packageTV) {
+        this.packageTV = packageTV;
+    }
 }

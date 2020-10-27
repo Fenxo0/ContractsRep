@@ -44,4 +44,28 @@ public class Mobile extends Contract {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate ;
     }
+
+    public String getAmountInternet() {
+        return amountInternet;
+    }
+
+    public void setAmountInternet(String amountInternet) {
+        this.amountInternet = amountInternet;
+    }
+
+    public int getAmountCall() {
+        return amountCall;
+    }
+
+    public void setAmountCall(int amountCall) {
+        this.amountCall = amountCall;
+    }
+
+    public int getAmountSMS() {
+        return amountSMS;
+    }
+
+    public void setAmountSMS(int amountSMS) {
+        this.amountSMS = amountSMS;
+    }
 }

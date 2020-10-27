@@ -63,4 +63,60 @@ public class Client {
                 ", age=" + age +
                 ")\n";
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSNP() {
+        return SNP;
+    }
+
+    public void setSNP(String SNP) {
+        this.SNP = SNP;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public int getSerPas() {
+        return serPas;
+    }
+
+    public void setSerPas(int serPas) {
+        this.serPas = serPas;
+    }
+
+    public int getNumPas() {
+        return numPas;
+    }
+
+    public void setNumPas(int numPas) {
+        this.numPas = numPas;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 }
