@@ -1,11 +1,11 @@
-package contacts;
+package contracts;
 
 import java.time.LocalDate;
 
 /**
  * @author Maxim Suhochev
  */
-public class Contract {
+public abstract class Contract {
 
     /** client*/
     protected Client client;
@@ -16,40 +16,62 @@ public class Contract {
     /** start contract*/
     protected LocalDate endDate;
 
-
     /**
-     * This method get id contract
-     * @return id
+     * This method get Client
+     * @return client
      */
     public Client getClient() {
         return client;
     }
 
+    /**
+     * This method set Client
+     */
     public void setClient(Client client) {
         this.client = client;
     }
 
+    /**
+     * This method get id contract
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * This method set id contract
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * This method get start date
+     * @return stertDate
+     */
     public LocalDate getStartDate() {
         return startDate;
     }
 
+    /**
+     * This method set start date
+     */
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
+    /**
+     * This method get end date
+     * @return endDate
+     */
     public LocalDate getEndDate() {
         return endDate;
     }
 
+    /**
+     * This method set end date
+     */
     public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
+        this.endDate = endDate;}
 }
