@@ -1,4 +1,6 @@
-package contracts;
+package org.contract.api.contracts;
+
+import org.contract.api.Client;
 
 import java.time.LocalDate;
 
@@ -30,7 +32,7 @@ public class Internet extends Contract {
     public String toString() {
         return "Internet\n" +
                 "client=" + client +
-                "maxSpeed='" + maxSpeed + '\'' +
+                "maxSpeed='" + maxSpeed + "Mb" + '\'' +
                 ", id=" + id +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate ;

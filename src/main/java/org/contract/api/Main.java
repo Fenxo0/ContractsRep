@@ -1,4 +1,6 @@
-package contracts;
+package org.contract.api;
+
+import org.contract.api.contracts.Mobile;
 
 import java.time.LocalDate;
 
@@ -30,5 +32,17 @@ public class Main {
                 .setAmountSMS(100)
                 .setAmountCall(34)
                 .build();
+        Mobile mobile1 = new Mobile.Builder()
+                .setId(10)
+                .setClient(client)
+                .setStartDate(LocalDate.of(2011, 8, 23))
+                .setEndDate(LocalDate.of(2020, 8, 23))
+                .setAmountInternet("100gb")
+                .setAmountSMS(100)
+                .setAmountCall(34)
+                .build();
+        contractsRep.addContract(mobile);
+        contractsRep.addContract(mobile1);
+        System.out.println(contractsRep.searchContract(client));
     }
 }

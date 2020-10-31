@@ -1,7 +1,7 @@
-import contracts.Client;
-import contracts.Contract;
-import contracts.ContractsRep;
-import contracts.Mobile;
+import org.contract.api.Client;
+import org.contract.api.contracts.Contract;
+import org.contract.api.ContractsRep;
+import org.contract.api.contracts.Mobile;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 

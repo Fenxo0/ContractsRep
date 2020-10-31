@@ -1,4 +1,6 @@
-package contracts;
+package org.contract.api.contracts;
+
+import org.contract.api.Client;
 
 import java.time.LocalDate;
 
@@ -48,7 +50,7 @@ public abstract class Contract {
 
     /**
      * This method get start date
-     * @return stertDate
+     * @return startDate
      */
     public LocalDate getStartDate() {
         return startDate;

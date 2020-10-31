@@ -1,4 +1,6 @@
-package contracts;
+package org.contract.api.contracts;
+
+import org.contract.api.Client;
 
 import java.time.LocalDate;
 
