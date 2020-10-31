@@ -2,7 +2,6 @@ package org.contract.api;
 
 import org.contract.api.contracts.Contract;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -46,21 +45,6 @@ public class ContractsRep {
                 .orElseThrow(() -> new NoSuchElementException("Not Found id!"));
     }
 
-    public Contract searchContract(LocalDate startDate) {
-        return Arrays.stream(contracts)
-                .filter(Objects::nonNull)
-                .filter(x -> x.getStartDate().equals(startDate))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Not Found id!"));
-    }
-
-    public Contract searchContract(Client client) {
-        return Arrays.stream(contracts)
-                .filter(Objects::nonNull)
-                .filter(x -> x.getClient().equals(client))
-                .findAny()
-                .orElseThrow(() -> new NoSuchElementException("Not Found id!"));
-    }
 
     /**
      * The contract is delete here
