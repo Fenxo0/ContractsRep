@@ -42,7 +42,7 @@ public class ContractsRep {
                 .filter(Objects::nonNull)
                 .filter(x -> x.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Not Found id!"));
+                .get();
     }
 
 
