@@ -43,6 +43,7 @@ public class Main {
                 .build();
         contractsRep.addContract(mobile);
         contractsRep.addContract(mobile1);
-        System.out.println(contractsRep.searchContract(client));
+        contractsRep.deleteContract(10);
+        System.out.println(contractsRep.getContractById(1));
     }
 }
