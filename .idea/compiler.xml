@@ -10,5 +10,8 @@
         <module name="TaskNet" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="TaskNet" target="10" />
+    </bytecodeTargetLevel>
   </component>
 </project>
