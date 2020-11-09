@@ -1,8 +1,11 @@
 package org.contract.api;
 
+import org.contract.api.comparators.IdComparator;
 import org.contract.api.contracts.Mobile;
 
 import java.time.LocalDate;
+
+import static org.contract.api.ContractsPredicates.*;
 
 /**
  * @author Maxim Suhochev
@@ -41,8 +44,19 @@ public class Main {
                 .setAmountSMS(100)
                 .setAmountCall(34)
                 .build();
+        Mobile mobile2 = new Mobile.Builder()
+                .setId(7)
+                .setClient(client)
+                .setStartDate(LocalDate.of(2007, 8, 23))
+                .setEndDate(LocalDate.of(2020, 8, 23))
+                .setAmountInternet("100gb")
+                .setAmountSMS(100)
+                .setAmountCall(34)
+                .build();
         contractsRep.addContract(mobile);
         contractsRep.addContract(mobile1);
-        System.out.println(contractsRep.searchContract(client));
+        contractsRep.addContract(mobile2);
+        System.out.println(contractsRep.getContract(isIdClient(1)));
+        contractsRep.bubbleSort(new IdComparator());
     }
 }

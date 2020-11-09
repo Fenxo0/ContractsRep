@@ -30,12 +30,12 @@ public class Internet extends Contract {
 
     @Override
     public String toString() {
-        return "Internet\n" +
+        return "\nInternet\n" +
                 "client=" + client +
                 "maxSpeed='" + maxSpeed + "Mb" + '\'' +
                 ", id=" + id +
                 ", startDate=" + startDate +
-                ", endDate=" + endDate ;
+                ", endDate=" + endDate + "\n";
     }
 
     /**

@@ -38,14 +38,14 @@ public class Mobile extends Contract {
 
     @Override
     public String toString() {
-        return "Mobile\n" +
+        return "\nMobile\n" +
                 "client=" + client +
                 "amountInternet='" + amountInternet + '\'' +
                 ", amountCall=" + amountCall +
                 ", amountSMS=" + amountSMS +
                 ", id=" + id +
                 ", startDate=" + startDate +
-                ", endDate=" + endDate ;
+                ", endDate=" + endDate + "\n" ;
     }
 
     /**

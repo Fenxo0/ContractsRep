@@ -76,4 +76,6 @@ public abstract class Contract {
      */
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;}
+
+
 }

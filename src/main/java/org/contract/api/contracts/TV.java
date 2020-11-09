@@ -32,12 +32,12 @@ public class TV extends Contract {
 
     @Override
     public String toString() {
-        return "TV\n" +
+        return "\nTV\n" +
                 "client=" + client +
                 "packageTV='" + packageTV + '\'' +
                 ", id=" + id +
                 ", startDate=" + startDate +
-                ", endDate=" + endDate;
+                ", endDate=" + endDate + "\n";
     }
 
     /**
