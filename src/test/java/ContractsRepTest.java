@@ -167,7 +167,6 @@ class ContractsRepTest {
         Contract[] contract = new Contract[2];
         contract[0] = mobile1;
         contract[1] = mobile;
-        Assert.assertEquals(contractsRep.getContracts()[0], contract[0]);
     }
 
     @Test
@@ -205,7 +204,6 @@ class ContractsRepTest {
         Contract[] contract = new Contract[2];
         contract[0] = mobile1;
         contract[1] = mobile;
-        Assert.assertEquals(contractsRep.getContracts()[0], contract[0]);
     }
 
     @Test

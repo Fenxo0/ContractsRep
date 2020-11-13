@@ -1,6 +1,9 @@
 package org.contract.api;
 
 import org.contract.api.contracts.Contract;
+import org.contract.api.sortings.BubbleSorting;
+import org.contract.api.sortings.ISorter;
+import org.contract.api.sortings.InsertionSorting;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -18,10 +21,10 @@ public class ContractsRep {
     private int n = 15;
     /**count*/
     private int count = 0;
-    /**
-     * array contracts
-     */
+    /**array contracts*/
     private Contract[] contracts = new Contract[n];
+    /**interface sorter*/
+    private ISorter sorter;
 
     /**
      * Here is added a new contract
@@ -51,33 +54,22 @@ public class ContractsRep {
                 .collect(Collectors.<Contract>toList());
     }
 
-    /**
-     * This method sorts bubble sorting by comparator
+    /**This method sorts bubble sorting by comparator
+     *
+     * @param comparator fields
      */
     public void bubbleSort(Comparator<Contract> comparator){
-        for(int j = count-1; j >= 1; j--){
-            for (int i = 0; i < j; i++) {
-                if(comparator.compare(contracts[i], contracts[i+1]) == 1) {
-                    toSwap(i, i+1);
-                }
-            }
-        }
-
+        sorter = new BubbleSorting();
+        sorter.sort(comparator, count, contracts);
     }
 
-    /**
-     * This method sorts insertion sorting by comparator
+    /**This method sorts insertion sorting by comparator
+     *
+     * @param comparator fields
      */
     public void insertionSort(Comparator<Contract> comparator){
-        for (int i = 1; i <= count; i++) {
-            Contract current = contracts[i];
-            int j = i - 1;
-            while(j >= 0 && comparator.compare(contracts[j], current) == 1) {
-                contracts[j + 1] = contracts[j];
-                j--;
-            }
-            contracts[j+1] = current;
-        }
+        sorter = new InsertionSorting();
+        sorter.sort(comparator, count, contracts);
     }
 
     /**
@@ -105,17 +97,6 @@ public class ContractsRep {
      */
     private Object[] arrayCopy(Contract[] con){
         return Arrays.copyOf(con, con.length + 10);
-    }
-
-    /**
-     * Here contracts are reversed
-     * @param first number contract
-     * @param second number contract
-     */
-    private void toSwap(int first, int second){
-        Contract temp = contracts[first];
-        contracts[first] = contracts[second];
-        contracts[second] = temp;
     }
 
     @Override

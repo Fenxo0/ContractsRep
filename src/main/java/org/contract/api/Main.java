@@ -56,7 +56,7 @@ public class Main {
         contractsRep.addContract(mobile);
         contractsRep.addContract(mobile1);
         contractsRep.addContract(mobile2);
-        System.out.println(contractsRep.getContract(isIdClient(1)));
         contractsRep.bubbleSort(new IdComparator());
+        System.out.println(contractsRep.getContract(isIdClient(1)));
     }
 }
