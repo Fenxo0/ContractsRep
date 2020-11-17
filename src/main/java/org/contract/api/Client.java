@@ -38,7 +38,7 @@ public class Client {
     private Client(int id, String SNP, LocalDate birthDate, String sex, int serPas, int numPas) {
         this.id = id;
         this.SNP = SNP;
-        getAge(birthDate);
+        //getAge(birthDate);
         this.sex = sex;
         this.serPas = serPas;
         this.numPas = numPas;
@@ -110,6 +110,7 @@ public class Client {
      */
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+        getAge(birthDate);
     }
 
     /**
@@ -192,6 +193,7 @@ public class Client {
 
         public Client.Builder setBirthDate(LocalDate date) {
             this.birthDate = date;
+
             return this;
         }
 
