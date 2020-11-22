@@ -12,6 +12,7 @@ import org.contract.api.contracts.TV;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +30,7 @@ public class LoaderCsv {
     private TV tv;
     /**client*/
     private Client client;
+    private List<Client> clientList = new ArrayList<>();
 
     public void parsingFile(ContractsRep contractsRep) throws IOException, CsvException {
         int index = 0;
@@ -41,21 +43,19 @@ public class LoaderCsv {
         for (String[] row : allData) {
             for (String cell : row) {
                 if(index == 0){
-                    client = parsClient(row, index);
+                    parsClient(row, index);
                     index++;
                 }
                 if ("mobile".equals(cell)) {
-                    mobile = parsMobile(row, 0, client);
+                    parsMobile(row, 0, client);
                     contractsRep.addContract(mobile);
                     break;
-                }
-                else if ("internet".equals(cell)) {
-                    internet = parsInternet(row, 0, client);
+                } else if ("internet".equals(cell)) {
+                    parsInternet(row, 0, client);
                     contractsRep.addContract(internet);
                     break;
-                }
-                else if ("tv".equals(cell)) {
-                    tv = parsTV(row, 0, client);
+                } else if ("tv".equals(cell)) {
+                    parsTV(row, 0, client);
                     contractsRep.addContract(tv);
                     break;
                 }
@@ -68,12 +68,15 @@ public class LoaderCsv {
      * Parsing client of csv file
      * @param allData client info
      * @param index data
-     * @return client
      */
-    private Client parsClient(String[] allData, int index){
-        Client client = new Client.Builder().build();
+    private void parsClient(String[] allData, int index){
+        client = new Client.Builder().build();
         for(String cell : allData) {
             if (index % 10 == 0) {
+                if(checkClient(Integer.parseInt(cell)) != null){
+                    client = checkClient(Integer.parseInt(cell));
+                    break;
+                }
                 client.setId(Integer.parseInt(cell));
             } else if (index % 10 == 1) {
                 client.setSNP(cell);
@@ -85,33 +88,42 @@ public class LoaderCsv {
                 client.setNumPas(Integer.parseInt(cell));
             } else if (index % 10 == 5) {
                 client.setSerPas(Integer.parseInt(cell));
+                clientList.add(client);
                 break;
             }
             index++;
         }
-        return client;
+    }
+
+    /**
+     * Checks clients for repeat
+     * @param id client
+     * @return client or null
+     */
+    private Client checkClient(int id){
+        for (int i = 0; i < clientList.size() - 1; i++) {
+            if(id == clientList.get(i).getId())
+                return clientList.get(i);
+        }
+        return null;
     }
 
     /**
      * Parsing mobile contract of csv file
      * @param allData contract info
      * @param index data
-     * @return mobile contract
      */
-    private Mobile parsMobile(String[] allData, int index, Client client){
-        Mobile mobile = new Mobile.Builder().build();
+    private void parsMobile(String[] allData, int index, Client client){
+        mobile = new Mobile.Builder().build();
         for (String cell : allData) {
             if (index < 11) {
                 if (index % 10 == 7) {
                     mobile.setId(Integer.parseInt(cell));
-                }
-                else if(index % 10 == 8){
+                } else if(index % 10 == 8){
                     mobile.setStartDate(LocalDate.parse(cell));
-                }
-                else if(index % 10 == 9){
+                } else if(index % 10 == 9){
                     mobile.setEndDate((LocalDate.parse(cell)));
-                }
-                else if(index % 10 == 0 && index != 0){
+                } else if(index % 10 == 0 && index != 0){
                     mobile.setClient(client);
                     String delimeter = "-";
                     String[] subStr = cell.split(delimeter);
@@ -127,36 +139,30 @@ public class LoaderCsv {
                 index++;
             }
         }
-        return mobile;
     }
 
     /**
      * Parsing internet contract of csv file
      * @param allData contract info
      * @param index data
-     * @return internet contract
      */
-    private Internet parsInternet(String[] allData, int index, Client client){
-        Internet internet = new Internet.Builder().build();
+    private void parsInternet(String[] allData, int index, Client client){
+        internet = new Internet.Builder().build();
         for (String cell : allData) {
             if (index < 11) {
                 if (index % 10 == 7) {
                     internet.setId(Integer.parseInt(cell));
-                }
-                else if(index % 10 == 8){
+                } else if(index % 10 == 8){
                     internet.setStartDate(LocalDate.parse(cell));
-                }
-                else if(index % 10 == 9){
+                } else if(index % 10 == 9){
                     internet.setEndDate((LocalDate.parse(cell)));
-                }
-                else if(index % 10 == 0 && index != 0){
+                } else if(index % 10 == 0 && index != 0){
                     internet.setClient(client);
                     internet.setMaxSpeed(Integer.parseInt(cell));
                 }
                 index++;
             }
         }
-        return internet;
     }
 
     /**
@@ -165,26 +171,22 @@ public class LoaderCsv {
      * @param index data
      * @return tv contract
      */
-    private TV parsTV(String[] allData, int index, Client client){
-        TV tv = new TV.Builder().build();
+    private void parsTV(String[] allData, int index, Client client){
+        tv = new TV.Builder().build();
         for (String cell : allData) {
             if (index < 11) {
                 if (index % 10 == 7) {
                     tv.setId(Integer.parseInt(cell));
-                }
-                else if(index % 10 == 8){
+                } else if(index % 10 == 8){
                     tv.setStartDate(LocalDate.parse(cell));
-                }
-                else if(index % 10 == 9){
+                } else if(index % 10 == 9){
                     tv.setEndDate((LocalDate.parse(cell)));
-                }
-                else if(index % 10 == 0 && index != 0){
+                } else if(index % 10 == 0 && index != 0){
                     tv.setClient(client);
                     tv.setPackageTV(cell);
                 }
                 index++;
             }
         }
-        return tv;
     }
 }
