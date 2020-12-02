@@ -1,6 +1,6 @@
 package org.contract.api.comparators;
 
-import org.contract.api.contracts.Contract;
+import org.contract.api.model.Contract;
 
 import java.util.Comparator;
 

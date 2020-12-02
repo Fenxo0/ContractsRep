@@ -1,29 +1,27 @@
-import org.contract.api.Client;
-import org.contract.api.ContractsRep;
+import org.contract.api.model.Client;
+import org.contract.api.repository.ContractsRep;
 import org.contract.api.comparators.IdComparator;
-import org.contract.api.contracts.Contract;
-import org.contract.api.contracts.Mobile;
+import org.contract.api.model.Contract;
+import org.contract.api.model.Mobile;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.Period;
-import static org.contract.api.ContractsPredicates.*;
+import static org.contract.api.predicat.ContractsPredicates.*;
+import static org.junit.Assert.assertNotNull;
 
 class ContractsRepTest {
 
+    ContractsRep contractsRep = new ContractsRep();
+    Client client;
+    Mobile mobile;
+    Mobile mobile1;
+
     @Test
     void addCon() {
-        ContractsRep contractsRep = new ContractsRep();
-        Client client = new Client.Builder()
-                .setId(1)
-                .setBirthDate(LocalDate.of(2000, 8, 23))
-                .setSNP("Сухочев Максим Юрьевич")
-                .setSex("M")
-                .setNumPas(2014)
-                .setSerPas(234234)
-                .build();
-        Mobile mobile = new Mobile.Builder()
+        mobile = new Mobile.Builder()
                 .setId(1)
                 .setClient(client)
                 .setStartDate(LocalDate.of(2010, 8, 23))
@@ -33,22 +31,11 @@ class ContractsRepTest {
                 .setAmountCall(34)
                 .build();
         contractsRep.addContract(mobile);
-        Contract[] contracts = new Contract[15];
-        contracts[0] = mobile;
-        //Assert.assertEquals(contracts[0], contractsRep.getContract(1));
+        System.out.println(contractsRep.getContract(isId(1)));;
     }
 
     @Test
     void getCon() {
-        ContractsRep contractsRep = new ContractsRep();
-        Client client = new Client.Builder()
-                .setId(1)
-                .setBirthDate(LocalDate.of(2000, 8, 23))
-                .setSNP("Сухочев Максим Юрьевич")
-                .setSex("M")
-                .setNumPas(2014)
-                .setSerPas(234234)
-                .build();
         Mobile mobile = new Mobile.Builder()
                 .setId(1)
                 .setClient(client)
@@ -59,20 +46,11 @@ class ContractsRepTest {
                 .setAmountCall(34)
                 .build();
         contractsRep.addContract(mobile);
-        //assertNotNull(contractsRep.getContract(1));
+        assertNotNull(contractsRep.getContract(isId(1)));
     }
 
     @Test
     void deleteCom() {
-        ContractsRep contractsRep = new ContractsRep();
-        Client client = new Client.Builder()
-                .setId(1)
-                .setBirthDate(LocalDate.of(2000, 8, 23))
-                .setSNP("Сухочев Максим Юрьевич")
-                .setSex("M")
-                .setNumPas(2014)
-                .setSerPas(234234)
-                .build();
         Mobile mobile = new Mobile.Builder()
                 .setId(1)
                 .setClient(client)
@@ -82,17 +60,7 @@ class ContractsRepTest {
                 .setAmountSMS(100)
                 .setAmountCall(34)
                 .build();
-        Mobile mobile1 = new Mobile.Builder()
-                .setId(2)
-                .setClient(client)
-                .setStartDate(LocalDate.of(2010, 8, 23))
-                .setEndDate(LocalDate.of(2020, 8, 23))
-                .setAmountInternet("100gb")
-                .setAmountSMS(100)
-                .setAmountCall(34)
-                .build();
         contractsRep.addContract(mobile);
-        contractsRep.addContract(mobile1);
         contractsRep.deleteContract(1);
     }
 

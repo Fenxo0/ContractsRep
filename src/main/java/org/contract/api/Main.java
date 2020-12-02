@@ -1,31 +1,20 @@
 package org.contract.api;
 
-import com.opencsv.CSVParser;
-import com.opencsv.CSVParserBuilder;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-import com.opencsv.exceptions.CsvValidationException;
 import org.contract.api.comparators.IdComparator;
-import org.contract.api.contracts.Contract;
-import org.contract.api.contracts.Internet;
-import org.contract.api.contracts.Mobile;
+import org.contract.api.model.Mobile;
+import org.contract.api.csv.LoaderCsv;
+import org.contract.api.model.Client;
+import org.contract.api.repository.ContractsRep;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
-
-import static org.contract.api.ContractsPredicates.*;
 
 /**
  * @author Maxim Suhochev
  */
 public class Main {
 
-    private static Mobile mobile;
-    private static Client client;
     /**
      * This method is executive
      * @param args - command line
