@@ -1,4 +1,4 @@
-package org.contract.api.validator;
+package org.contract.api.util.validator;
 
 import org.contract.api.model.Contract;
 

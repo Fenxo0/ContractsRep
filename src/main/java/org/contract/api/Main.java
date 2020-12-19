@@ -1,13 +1,11 @@
 package org.contract.api;
 
-import com.opencsv.exceptions.CsvException;
 import org.contract.api.comparators.IdComparator;
 import org.contract.api.model.Mobile;
-import org.contract.api.csv.LoaderCsv;
 import org.contract.api.model.Client;
 import org.contract.api.repository.ContractsRep;
+import org.contract.api.util.di.AutoInject;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 /**
@@ -19,7 +17,7 @@ public class Main {
      * This method is executive
      * @param args - command line
      */
-    public static void main(String[] args) throws IOException, CsvException {
+    public static void main(String[] args) throws Exception {
         ContractsRep contractsRep = new ContractsRep();
         Client client = new Client.Builder()
                 .setId(1)
@@ -59,9 +57,11 @@ public class Main {
         contractsRep.addContract(mobile);
         contractsRep.addContract(mobile1);
         contractsRep.addContract(mobile2);
-        contractsRep.bubbleSort(new IdComparator());
-        LoaderCsv loaderCsv = new LoaderCsv();
-        loaderCsv.parsingFile(contractsRep);
+        AutoInject.inject(contractsRep);
+        contractsRep.sort(new IdComparator());
+        /*LoaderCsv loaderCsv = new LoaderCsv();
+        loaderCsv.parsingFile(contractsRep);*/
         System.out.println(contractsRep);
     }
+
 }

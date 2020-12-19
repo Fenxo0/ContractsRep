@@ -1,9 +1,8 @@
 package org.contract.api.repository;
 
+import org.contract.api.util.di.Autowired;
 import org.contract.api.model.Contract;
-import org.contract.api.sortings.BubbleSorting;
 import org.contract.api.sortings.ISorter;
-import org.contract.api.sortings.InsertionSorting;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -24,7 +23,11 @@ public class ContractsRep {
     /**array contracts*/
     private Contract[] contracts = new Contract[n];
     /**interface sorter*/
+    @Autowired
     private ISorter sorter;
+
+    public ContractsRep() {
+    }
 
     /**
      * Here is added a new contract
@@ -54,21 +57,11 @@ public class ContractsRep {
                 .collect(Collectors.<Contract>toList());
     }
 
-    /**This method sorts bubble sorting by comparator
+    /**This method sorts by comparator
      *
      * @param comparator fields
      */
-    public void bubbleSort(Comparator<Contract> comparator){
-        sorter = new BubbleSorting();
-        sorter.sort(comparator, count, contracts);
-    }
-
-    /**This method sorts insertion sorting by comparator
-     *
-     * @param comparator fields
-     */
-    public void insertionSort(Comparator<Contract> comparator){
-        sorter = new InsertionSorting();
+    public void sort(Comparator<Contract> comparator){
         sorter.sort(comparator, count, contracts);
     }
 

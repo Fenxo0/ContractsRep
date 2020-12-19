@@ -1,7 +1,6 @@
 import com.opencsv.exceptions.CsvException;
-import org.contract.api.csv.LoaderCsv;
+import org.contract.api.util.csv.LoaderCsv;
 import org.contract.api.repository.ContractsRep;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

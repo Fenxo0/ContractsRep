@@ -5,6 +5,9 @@ import org.contract.api.model.Contract;
 import java.util.Comparator;
 
 public class BubbleSorting implements ISorter {
+    public BubbleSorting() {
+    }
+
     @Override
     public void sort(Comparator<Contract> comparator, int count, Contract[] contracts){
         for(int j = count-1; j >= 1; j--){

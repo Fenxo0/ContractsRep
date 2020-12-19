@@ -131,7 +131,7 @@ class ContractsRepTest {
                 .build();
         contractsRep.addContract(mobile);
         contractsRep.addContract(mobile1);
-        contractsRep.bubbleSort(new IdComparator());
+        contractsRep.sort(new IdComparator());
         Contract[] contract = new Contract[2];
         contract[0] = mobile1;
         contract[1] = mobile;
@@ -168,7 +168,7 @@ class ContractsRepTest {
                 .build();
         contractsRep.addContract(mobile);
         contractsRep.addContract(mobile1);
-        contractsRep.insertionSort(new IdComparator());
+        contractsRep.sort(new IdComparator());
         Contract[] contract = new Contract[2];
         contract[0] = mobile1;
         contract[1] = mobile;

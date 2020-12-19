@@ -1,9 +1,8 @@
-package org.contract.api.validator;
+package org.contract.api.util.validator;
 
 import org.contract.api.model.Contract;
 
 import java.time.Year;
-import java.util.Calendar;
 
 /**
  * Validator for client's birthdate

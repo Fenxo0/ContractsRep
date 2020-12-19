@@ -1,4 +1,4 @@
-package org.contract.api.csv;
+package org.contract.api.util.csv;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
@@ -7,7 +7,7 @@ import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
 import org.contract.api.model.*;
 import org.contract.api.repository.ContractsRep;
-import org.contract.api.validator.*;
+import org.contract.api.util.validator.*;
 
 import java.io.FileReader;
 import java.io.IOException;

@@ -4,7 +4,11 @@ import org.contract.api.model.Contract;
 
 import java.util.Comparator;
 
+/**
+ * @author Maxim Suhochev
+ */
 public class InsertionSorting implements ISorter {
+
     @Override
     public void sort(Comparator<Contract> comparator, int count, Contract[] contracts) {
         for (int i = 1; i <= count; i++) {
