@@ -1,6 +1,9 @@
 package org.contract.api.util.di;
 
+import org.contract.api.exceptions.AutowiredException;
+
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -16,32 +19,29 @@ public class AutoInject {
      * initializes these fields with class instances
      * They are specified in the config.properties file
      * @param object - class with annotations
-     * @throws IllegalAccessException
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws AutowiredException
      */
-    public static void inject(Object object) throws IllegalAccessException, IOException, ClassNotFoundException {
+    public static void inject(Object object) throws AutowiredException {
         Field[] fields = object.getClass().getDeclaredFields();
+        try {
+            FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
+            Properties properties = new Properties();
 
-        FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
-        Properties properties = new Properties();
+            properties.load(fileInputStream);
 
-        properties.load(fileInputStream);
+            for (Field field : fields) {
+                if (field.getAnnotation(Autowired.class) != null) {
 
-        for (Field field : fields) {
-            if (field.getAnnotation(Autowired.class) != null) {
-
-                Class cls = Class.forName(properties.getProperty(field.getAnnotatedType().toString()));
-                Object implInstance = null;
-                try {
+                    Class cls = Class.forName(properties.getProperty(field.getAnnotatedType().toString()));
+                    Object implInstance = null;
                     implInstance = cls.getDeclaredConstructor().newInstance();
-                } catch (InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-                    e.printStackTrace();
+                    field.setAccessible(true);
+                    field.set(object, implInstance);
                 }
-
-                field.setAccessible(true);
-                field.set(object, implInstance);
             }
+        }
+        catch (IOException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            throw new AutowiredException(e);
         }
     }
 }
