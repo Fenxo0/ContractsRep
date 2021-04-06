@@ -5,6 +5,7 @@ import org.contract.api.model.Mobile;
 import org.contract.api.model.Client;
 import org.contract.api.repository.ContractsRep;
 import org.contract.api.util.di.AutoInject;
+import org.contract.api.util.matrix.Matrix;
 
 import java.time.LocalDate;
 
@@ -61,6 +62,13 @@ public class Main {
         contractsRep.sort(new IdComparator());
         /*LoaderCsv loaderCsv = new LoaderCsv();
         loaderCsv.parsingFile(contractsRep);*/
+        int[][] firstMatrix = Matrix.initRandomMatrix(5);
+        int[][] secondMatrix = Matrix.initRandomMatrix(5);
+        Matrix[] list = new Matrix[firstMatrix.length];
+        for (int i = 0; i < secondMatrix.length; i++) {
+            list[i] = new Matrix(firstMatrix, secondMatrix[i]);
+            list[i].start();
+        }
         System.out.println(contractsRep);
     }
 
