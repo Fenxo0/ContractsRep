@@ -6,8 +6,6 @@ public class Client {
 
     private int sum;
 
-    private long timeService;
-
     public TypeOfOperation getType() {
         return type;
     }
@@ -22,13 +20,5 @@ public class Client {
 
     public void setSum(int sum) {
         this.sum = sum;
-    }
-
-    public long getTimeService() {
-        return timeService;
-    }
-
-    public void setTimeService(int timeService) {
-        this.timeService = timeService;
     }
 }

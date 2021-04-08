@@ -5,25 +5,19 @@ import java.util.List;
 
 public class Banker extends Thread{
 
-    private Bank bank;
+    private static Bank bank;
 
     private static int serviceTime;
 
     private List<Client> clients = new ArrayList<>();
 
-    public Banker(Bank bank) {
-        this.bank = bank;
-    }
-
-    public void putCash(Bank bank, Client client) throws InterruptedException {
-        sleep(client.getTimeService() * 1000 * 60);
+    synchronized public void putCash(Bank bank, Client client) throws InterruptedException {
         bank.setCash(bank.getCash() + client.getSum());
-        System.out.println("Положили в банк " + client.getSum());
+        System.out.println("Касса банка " + bank.getCash());
     }
 
-    public void drawCash(Bank bank, Client client) throws InterruptedException {
+    synchronized public void drawCash(Bank bank, Client client) throws InterruptedException {
         if (bank.getCash() - client.getSum() > 0){
-            sleep(client.getTimeService() * 1000 * 60);
             bank.setCash(bank.getCash() - client.getSum());
             System.out.println("Произошло снятие о счета " + client.getSum());
         }
@@ -43,13 +37,15 @@ public class Banker extends Thread{
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                } else {
+                } else if (client.getType() == TypeOfOperation.WITHDRAW) {
                     try {
                         drawCash(bank, client);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
+                else
+                    System.out.println("Не можем помочь");
                 try {
                     Thread.sleep(serviceTime);
                 } catch (InterruptedException e) {
@@ -57,6 +53,11 @@ public class Banker extends Thread{
                 }
             }
             System.out.println("Банкир свободен");
+            try {
+                Thread.sleep(7000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -66,5 +67,21 @@ public class Banker extends Thread{
 
     public void addClient(Client client){
         clients.add(client);
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public static void setBank(Bank bank) {
+        Banker.bank = bank;
+    }
+
+    public int getServiceTime() {
+        return serviceTime;
+    }
+
+    public static void setServiceTime(int serviceTime) {
+        Banker.serviceTime = serviceTime;
     }
 }
