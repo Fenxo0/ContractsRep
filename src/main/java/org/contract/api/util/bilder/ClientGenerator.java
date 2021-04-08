@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class ClientGenerator {
 
-    public static Client generateClient(){
+    public Client generateClient(){
         Random rnd = new Random();
         Client client = new Client();
         client.setSum(rnd.nextInt(10000) + 1000);
@@ -17,6 +17,7 @@ public class ClientGenerator {
             client.setType(TypeOfOperation.PUT);
         else
             client.setType(TypeOfOperation.WITHDRAW);
+        System.out.println("Новый клиент");
         return client;
     }
 }

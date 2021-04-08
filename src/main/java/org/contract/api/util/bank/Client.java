@@ -6,7 +6,7 @@ public class Client {
 
     private int sum;
 
-    private int timeService;
+    private long timeService;
 
     public TypeOfOperation getType() {
         return type;
@@ -24,7 +24,7 @@ public class Client {
         this.sum = sum;
     }
 
-    public int getTimeService() {
+    public long getTimeService() {
         return timeService;
     }
 
