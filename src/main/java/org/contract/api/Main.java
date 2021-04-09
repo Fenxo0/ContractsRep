@@ -5,8 +5,10 @@ import org.contract.api.model.Mobile;
 import org.contract.api.model.Client;
 import org.contract.api.repository.ContractsRep;
 import org.contract.api.util.di.AutoInject;
+import org.contract.api.util.jdbc.JdbcUtil;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Maxim Suhochev
@@ -20,7 +22,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         ContractsRep contractsRep = new ContractsRep();
         Client client = new Client.Builder()
-                .setId(1)
                 .setBirthDate(LocalDate.of(2000, 8, 23))
                 .setSNP("Сухочев Максим Юрьевич")
                 .setSex("M")
@@ -59,9 +60,12 @@ public class Main {
         contractsRep.addContract(mobile2);
         AutoInject.inject(contractsRep);
         contractsRep.sort(new IdComparator());
-        /*LoaderCsv loaderCsv = new LoaderCsv();
-        loaderCsv.parsingFile(contractsRep);*/
-        System.out.println(contractsRep);
+        client.setBirthDate(LocalDate.now());
+        JdbcUtil jdbcUtil = new JdbcUtil();
+        jdbcUtil.insertClient(client);
+        List<Client> clients = jdbcUtil.selectClients();
+        for (Client client1 : clients)
+            System.out.println(client1);
     }
 
 }

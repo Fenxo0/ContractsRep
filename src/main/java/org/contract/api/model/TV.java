@@ -82,7 +82,7 @@ public class TV extends Contract {
             return this;
         }
 
-        public TV.Builder packageTV(String packageTV) {
+        public TV.Builder setPackageTV(String packageTV) {
             this.packageTV = packageTV;
             return this;
         }
