@@ -11,6 +11,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Maxim Suhochev
+ */
+
+//Special class for work with DB
 public class JdbcUtil {
 
     //User database data
@@ -22,7 +27,7 @@ public class JdbcUtil {
     static final String DB_URL = "jdbc:postgresql://localhost:5432/example";
 
     //SQL
-    private final String INSERT_CLIENT  = "INSERT INTO CLIENT (SNP, SEX, PASSPORT_SERIES, PASSPORT_NUMBER, BIRTH_DATE, AGE) "
+    private final String INSERT_CLIENT  = "INSERT INTO CLIENT (SNP, SEX, PASSPORT_SERIES, PASSPORT_NUMBER, AGE, BIRTH_DATE) "
             + "VALUES (?, ?, ?, ?, ?, ?)";
     private final String INSERT_MOBILE  = "INSERT INTO MOBILE (AMOUNT_INTERNET, AMOUNT_SMS, AMOUNT_CALL, START_DATE, END_DATE, CLIENT_ID) "
             + "VALUES (?, ?, ?, ?, ?, ?)";
@@ -38,6 +43,10 @@ public class JdbcUtil {
     private Connection conn;
     private Statement stmt;
 
+    /**
+     * Insert Client
+     * @param client to insert
+     */
     public void insertClient(Client client){
         try {
             Class.forName(JDBC_DRIVER).getDeclaredConstructor().newInstance();
@@ -49,8 +58,8 @@ public class JdbcUtil {
             preparedStatement.setString(2, client.getSex());
             preparedStatement.setInt(3, client.getSerPas());
             preparedStatement.setInt(4, client.getNumPas());
-            preparedStatement.setDate(5, Date.valueOf(client.getBirthDate()));
-            preparedStatement.setInt(6, client.getAge());
+            preparedStatement.setInt(5, client.getAge());
+            preparedStatement.setDate(6, Date.valueOf(client.getBirthDate()));
             preparedStatement.addBatch();
             preparedStatement.executeBatch();
         } catch (SQLException throwables) {
@@ -68,13 +77,21 @@ public class JdbcUtil {
         }
     }
 
+    /**
+     * Insert Mobile
+     * @param mobile to insert
+     */
     public void insertMobile(Mobile mobile){
         try {
             Class.forName(JDBC_DRIVER).getDeclaredConstructor().newInstance();
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             stmt = conn.createStatement();
-            PreparedStatement preparedStatement =
-                    conn.prepareStatement(INSERT_MOBILE);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT ID FROM CLIENT "
+                + "WHERE PASSPORT_SERIES = " + mobile.getClient().getSerPas());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next())
+                mobile.getClient().setId(resultSet.getInt("ID"));
+            preparedStatement = conn.prepareStatement(INSERT_MOBILE);
             preparedStatement.setString(1, mobile.getAmountInternet());
             preparedStatement.setInt(2, mobile.getAmountSMS());
             preparedStatement.setInt(3, mobile.getAmountCall());
@@ -98,12 +115,21 @@ public class JdbcUtil {
         }
     }
 
+    /**
+     * Insert Internet
+     * @param internet to insert
+     */
     public void insertInternet(Internet internet){
         try {
             Class.forName(JDBC_DRIVER).getDeclaredConstructor().newInstance();
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             stmt = conn.createStatement();
-            PreparedStatement preparedStatement =
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT ID FROM CLIENT "
+                    + "WHERE PASSPORT_SERIES = " + internet.getClient().getSerPas());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next())
+                internet.getClient().setId(resultSet.getInt("ID"));
+            preparedStatement =
                     conn.prepareStatement(INSERT_INTERNET);
             preparedStatement.setInt(1, internet.getMaxSpeed());
             preparedStatement.setDate(2, Date.valueOf(internet.getStartDate()));
@@ -126,12 +152,21 @@ public class JdbcUtil {
         }
     }
 
+    /**
+     * Insert TV
+     * @param tv to insert
+     */
     public void insertTV(TV tv){
         try {
             Class.forName(JDBC_DRIVER).getDeclaredConstructor().newInstance();
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             stmt = conn.createStatement();
-            PreparedStatement preparedStatement =
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT ID FROM CLIENT "
+                    + "WHERE PASSPORT_SERIES = " + tv.getClient().getSerPas());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next())
+                tv.getClient().setId(resultSet.getInt("ID"));
+            preparedStatement =
                     conn.prepareStatement(INSERT_TV);
             preparedStatement.setString(1, tv.getPackageTV());
             preparedStatement.setDate(2, Date.valueOf(tv.getStartDate()));
@@ -154,6 +189,10 @@ public class JdbcUtil {
         }
     }
 
+    /**
+     * Select all clients
+     * @return List<Client>
+     */
     public List<Client> selectClients(){
         List<Client> clients = new ArrayList<>();
         try {
@@ -169,8 +208,8 @@ public class JdbcUtil {
                         .setSNP(resultSet.getString("SNP"))
                         .setBirthDate((resultSet.getTimestamp("BIRTH_DATE")).toLocalDateTime().toLocalDate())
                         .setSex(resultSet.getString("SEX"))
-                        .setNumPas(resultSet.getInt("PASSPORT_SERIES"))
-                        .setSerPas(resultSet.getInt("PASSPORT_NUMBER"))
+                        .setSerPas(resultSet.getInt("PASSPORT_SERIES"))
+                        .setNumPas(resultSet.getInt("PASSPORT_NUMBER"))
                         .build();
                 clients.add(client);
             }
@@ -190,6 +229,10 @@ public class JdbcUtil {
         return clients;
     }
 
+    /**
+     * Select all internets
+     * @return List<Internet>
+     */
     public List<Internet> selectInternets(){
         List<Internet> internets = new ArrayList<>();
         try {
@@ -205,6 +248,20 @@ public class JdbcUtil {
                         .setStartDate(resultSet.getTimestamp("START_DATE").toLocalDateTime().toLocalDate())
                         .setEndDate(resultSet.getTimestamp("END_DATE").toLocalDateTime().toLocalDate())
                         .build();
+                PreparedStatement preparedStatementClient = conn.prepareStatement("SELECT * FROM CLIENT "
+                        + "WHERE ID = " + resultSet.getInt("CLIENT_ID"));
+                ResultSet resultSetClient = preparedStatementClient.executeQuery();
+                while (resultSetClient.next()) {
+                    Client client = new Client.Builder()
+                            .setId(resultSetClient.getInt("ID"))
+                            .setSNP(resultSetClient.getString("SNP"))
+                            .setBirthDate((resultSetClient.getTimestamp("BIRTH_DATE")).toLocalDateTime().toLocalDate())
+                            .setSex(resultSetClient.getString("SEX"))
+                            .setSerPas(resultSetClient.getInt("PASSPORT_SERIES"))
+                            .setNumPas(resultSetClient.getInt("PASSPORT_NUMBER"))
+                            .build();
+                    internet.setClient(client);
+                }
                 internets.add(internet);
             }
         } catch (SQLException throwables) {
@@ -223,6 +280,10 @@ public class JdbcUtil {
         return internets;
     }
 
+    /**
+     * Select all mobiles
+     * @return List<Mobile>
+     */
     public List<Mobile> selectMobiles(){
         List<Mobile> mobiles = new ArrayList<>();
         try {
@@ -241,6 +302,20 @@ public class JdbcUtil {
                         .setAmountCall(resultSet.getInt("AMOUNT_CALL"))
                         .setAmountSMS(resultSet.getInt("AMOUNT_SMS"))
                         .build();
+                PreparedStatement preparedStatementClient = conn.prepareStatement("SELECT * FROM CLIENT "
+                        + "WHERE ID = " + resultSet.getInt("CLIENT_ID"));
+                ResultSet resultSetClient = preparedStatementClient.executeQuery();
+                while (resultSetClient.next()) {
+                    Client client = new Client.Builder()
+                            .setId(resultSetClient.getInt("ID"))
+                            .setSNP(resultSetClient.getString("SNP"))
+                            .setBirthDate((resultSetClient.getTimestamp("BIRTH_DATE")).toLocalDateTime().toLocalDate())
+                            .setSex(resultSetClient.getString("SEX"))
+                            .setSerPas(resultSetClient.getInt("PASSPORT_SERIES"))
+                            .setNumPas(resultSetClient.getInt("PASSPORT_NUMBER"))
+                            .build();
+                    mobile.setClient(client);
+                }
                 mobiles.add(mobile);
             }
         } catch (SQLException throwables) {
@@ -259,6 +334,10 @@ public class JdbcUtil {
         return mobiles;
     }
 
+    /**
+     * Select all tvs
+     * @return List<TV>
+     */
     public List<TV> selectTVs(){
         List<TV> tvs = new ArrayList<>();
         try {
@@ -275,6 +354,20 @@ public class JdbcUtil {
                         .setEndDate(resultSet.getTimestamp("END_DATE").toLocalDateTime().toLocalDate())
                         .setPackageTV(resultSet.getString("PACKAGE_TV"))
                         .build();
+                PreparedStatement preparedStatementClient = conn.prepareStatement("SELECT * FROM CLIENT "
+                        + "WHERE ID = " + resultSet.getInt("CLIENT_ID"));
+                ResultSet resultSetClient = preparedStatementClient.executeQuery();
+                while (resultSetClient.next()) {
+                    Client client = new Client.Builder()
+                            .setId(resultSetClient.getInt("ID"))
+                            .setSNP(resultSetClient.getString("SNP"))
+                            .setBirthDate((resultSetClient.getTimestamp("BIRTH_DATE")).toLocalDateTime().toLocalDate())
+                            .setSex(resultSetClient.getString("SEX"))
+                            .setSerPas(resultSetClient.getInt("PASSPORT_SERIES"))
+                            .setNumPas(resultSetClient.getInt("PASSPORT_NUMBER"))
+                            .build();
+                    tv.setClient(client);
+                }
                 tvs.add(tv);
             }
         } catch (SQLException throwables) {

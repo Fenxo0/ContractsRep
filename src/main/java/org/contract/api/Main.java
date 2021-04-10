@@ -62,10 +62,9 @@ public class Main {
         contractsRep.sort(new IdComparator());
         client.setBirthDate(LocalDate.now());
         JdbcUtil jdbcUtil = new JdbcUtil();
-        jdbcUtil.insertClient(client);
-        List<Client> clients = jdbcUtil.selectClients();
-        for (Client client1 : clients)
-            System.out.println(client1);
+        List<Mobile> mobiles = jdbcUtil.selectMobiles();
+        for (Mobile mobile3 : mobiles)
+            System.out.println(mobile3);
     }
 
 }
