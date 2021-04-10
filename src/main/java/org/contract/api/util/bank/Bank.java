@@ -1,5 +1,8 @@
 package org.contract.api.util.bank;
 
+/**
+ * @author Maxim Suhochev
+ */
 public class Bank {
 
     private int cash;

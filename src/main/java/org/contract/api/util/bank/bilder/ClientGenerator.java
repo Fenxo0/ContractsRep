@@ -7,6 +7,11 @@ import org.contract.api.util.bank.TypeOfOperation;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * @author Maxim Suhochev
+ */
+
+/**Class for generate clients and add in queue*/
 public class ClientGenerator extends Thread {
 
     private List<Banker> bankers;
@@ -19,6 +24,10 @@ public class ClientGenerator extends Thread {
         this.bankers = bankers;
     }
 
+    /**
+     * Put client in queue
+     * @param client
+     */
     public void createQueue(Client client){
         Banker firstBanker = bankers.get(0);
         for (Banker banker : bankers){
@@ -45,6 +54,10 @@ public class ClientGenerator extends Thread {
         }
     }
 
+    /**
+     * Generate type clients operation
+     * @return type
+     */
     public TypeOfOperation generateType(){
         int type = rnd.nextInt(3);
         switch (type){
@@ -56,6 +69,11 @@ public class ClientGenerator extends Thread {
         return TypeOfOperation.PUT;
     }
 
+    /**
+     * Clients generator
+     * @param type operation
+     * @return client
+     */
     public Client generateClient(TypeOfOperation type){
         Client client = new Client();
         client.setSum(rnd.nextInt(1000) + 1000);

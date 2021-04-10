@@ -3,6 +3,9 @@ package org.contract.api.util.bank;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Maxim Suhochev
+ */
 public class Banker extends Thread{
 
     private static Bank bank;
@@ -11,11 +14,23 @@ public class Banker extends Thread{
 
     private List<Client> clients = new ArrayList<>();
 
+    /**
+     * Put cash in the bank
+     * @param bank
+     * @param client
+     * @throws InterruptedException
+     */
     synchronized public void putCash(Bank bank, Client client) throws InterruptedException {
         bank.setCash(bank.getCash() + client.getSum());
         System.out.println("Касса банка " + bank.getCash());
     }
 
+    /**
+     * Draw money from the bank
+     * @param bank
+     * @param client
+     * @throws InterruptedException
+     */
     synchronized public void drawCash(Bank bank, Client client) throws InterruptedException {
         if (bank.getCash() - client.getSum() > 0){
             bank.setCash(bank.getCash() - client.getSum());
@@ -54,7 +69,7 @@ public class Banker extends Thread{
             }
             System.out.println("Банкир свободен");
             try {
-                Thread.sleep(7000);
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
