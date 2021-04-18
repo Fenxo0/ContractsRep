@@ -13,7 +13,7 @@ import java.util.List;
 /** Class for generate bankers*/
 public class BankerGenerator {
 
-    private final static int N = 3;
+    private final static int N = 5;
 
     private final static int SERVICE_TIME = 9000;
 

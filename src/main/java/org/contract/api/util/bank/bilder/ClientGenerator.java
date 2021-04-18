@@ -16,7 +16,7 @@ public class ClientGenerator extends Thread {
 
     private List<Banker> bankers;
 
-    private final static int CLIENTS_PER_MINUTE = 15;
+    private final static int CLIENTS_PER_MINUTE = 9;
 
     private Random rnd = new Random();
 
@@ -36,6 +36,7 @@ public class ClientGenerator extends Thread {
             }
         }
         firstBanker.addClient(client);
+        firstBanker.notify();
     }
 
     @Override

@@ -68,10 +68,12 @@ public class Banker extends Thread{
                 }
             }
             System.out.println("Банкир свободен");
-            try {
-                Thread.sleep(60000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while (clients.isEmpty()){
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
