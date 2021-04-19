@@ -36,7 +36,9 @@ public class ClientGenerator extends Thread {
             }
         }
         firstBanker.addClient(client);
-        firstBanker.notify();
+        synchronized (firstBanker) {
+            firstBanker.notify();
+        }
     }
 
     @Override

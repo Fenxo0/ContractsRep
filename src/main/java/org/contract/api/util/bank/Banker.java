@@ -66,13 +66,16 @@ public class Banker extends Thread{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                clients.remove(0);
             }
             System.out.println("Банкир свободен");
-            while (clients.isEmpty()){
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            synchronized (this) {
+                while (clients.isEmpty()) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
