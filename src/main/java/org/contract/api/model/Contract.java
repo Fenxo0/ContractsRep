@@ -2,6 +2,7 @@ package org.contract.api.model;
 
 import org.contract.api.model.Client;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.time.LocalDate;
 
 /**

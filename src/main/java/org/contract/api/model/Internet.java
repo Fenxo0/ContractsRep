@@ -1,11 +1,16 @@
 package org.contract.api.model;
 
+import javax.xml.bind.annotation.*;
 import java.time.LocalDate;
 
 /**
  * @author Maxim Suhochev
  */
+@XmlRootElement(name = "Internet")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Internet extends Contract {
+
+    @XmlElement(name = "Max Speed")
     private int maxSpeed;
     private static Internet.Builder builder;
 
@@ -24,6 +29,9 @@ public class Internet extends Contract {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public Internet() {
     }
 
     @Override

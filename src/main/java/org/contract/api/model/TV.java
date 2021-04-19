@@ -1,14 +1,21 @@
 package org.contract.api.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 
 /**
  * @author Maxim Suhochev
  */
+@XmlRootElement(name = "TV")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TV extends Contract {
 
     private static TV.Builder builder;
     /** package TV*/
+    @XmlElement(name = "Package TV")
     private String packageTV;
 
     /**

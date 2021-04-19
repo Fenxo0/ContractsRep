@@ -1,29 +1,39 @@
 package org.contract.api.model;
 
+import javax.xml.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.Period;
 
 /**
  * @author Maxim Suhochev
  */
+@XmlRootElement(name = "client")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Client {
 
     private static Client.Builder builder;
     /** id client*/
+    @XmlElement(name = "Id")
     private int id;
     /** surname, name and patronymic client*/
+    @XmlElement(name = "SNP")
     private String SNP;
     /**
      * birthdate client
      */
+    @XmlElement(name = "Birth Date")
     private LocalDate birthDate;
     /** sex client*/
+    @XmlElement(name = "Sex")
     private String sex;
     /** passport series client*/
+    @XmlElement(name = "Series Passport")
     private int serPas;
     /** passport number client*/
+    @XmlElement(name = "Number Passport")
     private int numPas;
     /** age client*/
+    @XmlElement(name = "Age")
     private int age;
 
     /**
@@ -43,6 +53,9 @@ public class Client {
         this.serPas = serPas;
         this.numPas = numPas;
 
+    }
+
+    public Client() {
     }
 
     /**

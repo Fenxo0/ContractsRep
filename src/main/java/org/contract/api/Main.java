@@ -1,11 +1,16 @@
 package org.contract.api;
 
 import org.contract.api.comparators.IdComparator;
+import org.contract.api.model.Internet;
 import org.contract.api.model.Mobile;
 import org.contract.api.model.Client;
 import org.contract.api.repository.ContractsRep;
 import org.contract.api.util.di.AutoInject;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import java.io.File;
+import java.io.StringWriter;
 import java.time.LocalDate;
 
 /**
@@ -61,6 +66,17 @@ public class Main {
         contractsRep.sort(new IdComparator());
         /*LoaderCsv loaderCsv = new LoaderCsv();
         loaderCsv.parsingFile(contractsRep);*/
+        JAXBContext context = JAXBContext.newInstance(Client.class);
+
+        Marshaller m = context.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        m.marshal(client, System.out);
+
+        File outFile = new File("client.xml");
+        m.marshal(client, outFile);
+
+        System.err.println("Write to file: " + outFile.getAbsolutePath());
         System.out.println(contractsRep);
     }
 

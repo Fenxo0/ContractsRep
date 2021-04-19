@@ -1,17 +1,26 @@
 package org.contract.api.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 
 /**
  * @author Maxim Suhochev
  */
+@XmlRootElement(name = "Mobile")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Mobile extends Contract {
     private static Mobile.Builder builder;
     /** amount internet in this contract*/
+    @XmlElement(name = "Amount Internet")
     private String amountInternet;
     /** amount call in this contract*/
+    @XmlElement(name = "Amount Call")
     private int amountCall;
     /** amount sms in this contract*/
+    @XmlElement(name = "Amount SMS")
     private int amountSMS;
 
     /**
